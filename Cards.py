@@ -25,8 +25,10 @@ class StandardDeck(object):
         random.shuffle(self.cards)
         print("Deck Shuffled")
 
+    def deal(self):
+        return self.cards.pop(0)
 
-test = StandardDeck()
-test.shuffle()
-print(test.cards)
-print(len(test.cards))
+
+card_deck = StandardDeck()
+print(card_deck.cards)
+card_deck.shuffle()
