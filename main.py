@@ -31,14 +31,13 @@ def start_game():
     print(f"Player_2 hand: {player_2.cards}")
 
     hand_1 = check_hand(table_cards, player_1)
-    hand_2 = check_hand(table_cards, player_2)
+    #hand_2 = check_hand(table_cards, player_2)
 
 
 def check_hand(table_cards, player):
     check_list = CardCombinations(table_cards.cards, player.cards)
-    #check_list.cards.sort()
     print(check_list.cards)
-    print(len(check_list.cards))
+    check_list.cheсk()
 
 
 

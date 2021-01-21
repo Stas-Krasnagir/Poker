@@ -2,13 +2,22 @@ class CardCombinations:
     def __init__(self, cards, player_cards):
         self.cards = cards + player_cards
 
-    def flush(self):
+    def cheсk(self):
+        print(f"flush {self.flush()}")
+        print(f"straight {self.straight()}")
+        print(f"high_card {self.high_card()}")
+        print(f"pairs {self.pairs()}")
+        print(f"three_kind {self.three_kind()}")
+        print(f"four_kind {self.four_kind()}")
+        print(f"full_house {self.full_house()}")
+
+    def flush(self):  # 5 cards of the same suit
         suits = [card.suit for card in self.cards]
         if len(set(suits)) == 1:
             return True
         return False
 
-    def straight(self):
+    def straight(self):  # Sequence of 5 cards in increasing value
         values = [card.value for card in self.cards]
         values.sort()
 
@@ -30,7 +39,7 @@ class CardCombinations:
 
         return values[4]
 
-    def high_card(self):
+    def high_card(self):  # Simple value of the card
         values = [card.value for card in self.cards]
         high_card = None
         for card in self.cards:
@@ -41,16 +50,7 @@ class CardCombinations:
 
         return high_card
 
-    def highest_count(self):
-        count = 0
-        values = [card.value for card in self.cards]
-        for value in values:
-            if values.count(value) > count:
-                count = values.count(value)
-
-        return count
-
-    def pairs(self):
+    def pairs(self):  # Two times two cards with the same value
         pairs = []
         values = [card.value for card in self.cards]
         for value in values:
@@ -59,13 +59,19 @@ class CardCombinations:
 
         return pairs
 
-    def four_kind(self):
+    def four_kind(self):  # Four cards of the same value
         values = [card.value for card in self.cards]
         for value in values:
             if values.count(value) == 4:
                 return True
 
-    def full_house(self):
+    def three_kind(self):  # Three cards with the same value
+        values = [card.value for card in self.cards]
+        for value in values:
+            if values.count(value) == 3:
+                return True
+
+    def full_house(self):  # Combination of three of a kind and a pair
         two = False
         three = False
 
@@ -79,3 +85,6 @@ class CardCombinations:
             return True
 
         return False
+
+    def straight_flush(self):  # Straight of the same suit
+        pass
