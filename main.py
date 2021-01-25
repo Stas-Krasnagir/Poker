@@ -3,16 +3,6 @@ from players import *
 from combinations import CardCombinations
 
 
-def set_players():
-    num_players = int(input("Set numbers of players: "))
-    players = []
-    for i in range(1, num_players + 1):
-        name = "Player_" + str(i)
-        players.append(name)
-    print(players)
-    pass
-
-
 def start_game():
     deck.shuffle()
     table_cards = Deck()
@@ -39,7 +29,9 @@ def start_game():
     for i in range(2):
         deck.deal(player_4)
     print(f"Player_4 hand: {player_4.cards}")
+
     print("___________")
+
     hand_1 = check_hand(table_cards, player_1)
     hand_2 = check_hand(table_cards, player_2)
     hand_3 = check_hand(table_cards, player_3)
@@ -49,9 +41,8 @@ def start_game():
 def check_hand(table_cards, player):
     check_list = CardCombinations(table_cards.cards, player.cards)
     check_list.cheсk()
-
-
-
+    # player.score = check_list.check()
+    # print(f"{player.name} hand is {player.score}")
 
 
 start_game()

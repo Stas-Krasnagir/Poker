@@ -24,11 +24,9 @@ class CardCombinations:
         elif self.straight():
             print(self.straight())
         elif self.three_kind():
-            print("Three kind")
+            print(self.three_kind())
         elif self.pairs():
             print(self.pairs())
-        elif self.two_pairs():
-            print(f"Two pairs of {self.two_pairs()}")
         else:
             print(f"High card: {self.high_card()}")
 
@@ -37,7 +35,7 @@ class CardCombinations:
         sequence = False
         if self.flush():
             one_suit = True
-        elif self.straight():
+        if self.straight():
             values = self.cheak_values()
             values.sort()
             if values[6] == 14:
@@ -105,12 +103,11 @@ class CardCombinations:
             return False
 
     def high_card(self):  # Simple value of the card
-        values = self.cheak_values()
         high_card = None
         for card in self.cards:
             if high_card is None:
                 high_card = card
-            elif high_card.value < card.value:
+            if high_card.value < card.value:
                 high_card = card
 
         return high_card
@@ -121,9 +118,13 @@ class CardCombinations:
         for value in values:
             if values.count(value) >= 2 and value not in pairs:
                 pairs.append(value)
-            if pairs:
-                return f"Pair of {pairs}"
-            return False
+        if pairs:
+            if len(pairs) == 1:
+                return f"Pair of {pairs[0]}"
+            else:
+                return f"Pairs of {pairs[0]} and {pairs[1]}"
+
+        return False
 
     def four_kind(self):  # Four cards of the same value
         values = self.cheak_values()
@@ -133,19 +134,24 @@ class CardCombinations:
 
     def three_kind(self):  # Three cards with the same value
         values = self.cheak_values()
+        res = []
         for value in values:
-            if values.count(value) == 3:
-                return True
+            if values.count(value) == 3 and value not in res:
+                res.append(value)
+        if res:
+            return f"Three a kind of {res[0]}"
+        return False
 
     def full_house(self):  # Combination of three of a kind and a pair
         two = False
         three = False
 
         values = self.cheak_values()
-        if values.count(values) == 2:
-            two = True
-        elif values.count(values) == 3:
-            three = True
+        for value in values:
+            if values.count(value) == 2:
+                two = True
+            elif values.count(value) == 3:
+                three = True
 
         if two and three:
             return True
@@ -157,19 +163,10 @@ class CardCombinations:
         five_in_line = False
         if self.straight():
             five_in_line = True
-        elif self.flush():
+        if self.flush():
             one_suits = True
 
         if one_suits and five_in_line:
             return True
         return False
 
-    def two_pairs(self):  # Two times two cards with the same value
-        pairs = []
-        values = self.cheak_values()
-        for value in values:
-            if values.count(value) >= 2 and value not in pairs:
-                pairs.append(value)
-            if len(pairs) > 1:
-                return f"Pair of {pairs}"
-            return False
