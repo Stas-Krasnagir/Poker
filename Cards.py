@@ -67,5 +67,6 @@ class StandardDeck(object):
             return location.cards.append(self.cards.pop(0))
 
 
+
 deck = StandardDeck()
 

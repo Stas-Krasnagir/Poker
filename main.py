@@ -32,17 +32,33 @@ def start_game():
 
     print("___________")
 
-    hand_1 = check_hand(table_cards, player_1)
-    hand_2 = check_hand(table_cards, player_2)
-    hand_3 = check_hand(table_cards, player_3)
-    hand_4 = check_hand(table_cards, player_4)
+    check_hand(table_cards, player_1)
+    check_hand(table_cards, player_2)
+    check_hand(table_cards, player_3)
+    check_hand(table_cards, player_4)
+
+    print("___________")
+
+    print(f"Player_1 score: {player_1.score}")
+    print(f"Player_2 score: {player_2.score}")
+    print(f"Player_3 score: {player_3.score}")
+    print(f"Player_4 score: {player_4.score}")
+
 
 
 def check_hand(table_cards, player):
     check_list = CardCombinations(table_cards.cards, player.cards)
-    check_list.cheсk()
-    # player.score = check_list.check()
-    # print(f"{player.name} hand is {player.score}")
+    player.score = check_list.cheсk()
+    values = [card.value for card in player.cards]
+    for value in values:
+        player.score += value
+
+
+def final_score(player):
+    pass
+
+
+
 
 
 start_game()

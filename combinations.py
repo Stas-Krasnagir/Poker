@@ -13,22 +13,34 @@ class CardCombinations:
     def cheсk(self):
         if self.royal_flush():
             print("Royal flush")
+            return 1000
         elif self.straight_flush():
             print("Straight flush")
+            return 900
         elif self.four_kind():
             print("Four kind")
+            return 800
         elif self.full_house():
             print("Full house")
+            return 700
         elif self.flush():
             print(self.flush())
+            return 600
         elif self.straight():
             print(self.straight())
+            return 500
         elif self.three_kind():
             print(self.three_kind())
+            return 400
+        elif self.two_pairs():
+            print(self.two_pairs())
+            return 300
         elif self.pairs():
             print(self.pairs())
+            return 200
         else:
             print(f"High card: {self.high_card()}")
+            return 100
 
     def royal_flush(self):  # Straight flush from Ten to Ace
         one_suit = False
@@ -44,6 +56,40 @@ class CardCombinations:
                 sequence = False
         if one_suit and sequence:
             return True
+        return False
+
+    def straight_flush(self):  # Straight of the same suit
+        one_suits = False
+        five_in_line = False
+        if self.straight():
+            five_in_line = True
+        if self.flush():
+            one_suits = True
+
+        if one_suits and five_in_line:
+            return True
+        return False
+
+    def four_kind(self):  # Four cards of the same value
+        values = self.cheak_values()
+        for value in values:
+            if values.count(value) == 4:
+                return True
+
+    def full_house(self):  # Combination of three of a kind and a pair
+        two = False
+        three = False
+
+        values = self.cheak_values()
+        for value in values:
+            if values.count(value) == 2:
+                two = True
+            elif values.count(value) == 3:
+                three = True
+
+        if two and three:
+            return True
+
         return False
 
     def flush(self):  # 5 cards of the same suit
@@ -102,36 +148,6 @@ class CardCombinations:
         else:
             return False
 
-    def high_card(self):  # Simple value of the card
-        high_card = None
-        for card in self.cards:
-            if high_card is None:
-                high_card = card
-            if high_card.value < card.value:
-                high_card = card
-
-        return high_card
-
-    def pairs(self):  # Two times two cards with the same value
-        pairs = []
-        values = self.cheak_values()
-        for value in values:
-            if values.count(value) >= 2 and value not in pairs:
-                pairs.append(value)
-        if pairs:
-            if len(pairs) == 1:
-                return f"Pair of {pairs[0]}"
-            else:
-                return f"Pairs of {pairs[0]} and {pairs[1]}"
-
-        return False
-
-    def four_kind(self):  # Four cards of the same value
-        values = self.cheak_values()
-        for value in values:
-            if values.count(value) == 4:
-                return True
-
     def three_kind(self):  # Three cards with the same value
         values = self.cheak_values()
         res = []
@@ -142,31 +158,31 @@ class CardCombinations:
             return f"Three a kind of {res[0]}"
         return False
 
-    def full_house(self):  # Combination of three of a kind and a pair
-        two = False
-        three = False
-
+    def pairs(self):  # Two cards with the same value
+        pairs = []
         values = self.cheak_values()
         for value in values:
-            if values.count(value) == 2:
-                two = True
-            elif values.count(value) == 3:
-                three = True
-
-        if two and three:
-            return True
-
+            if values.count(value) >= 2 and value not in pairs:
+                pairs.append(value)
+        if len(pairs) == 1:
+            return f"Pair of {pairs[0]}"
         return False
 
-    def straight_flush(self):  # Straight of the same suit
-        one_suits = False
-        five_in_line = False
-        if self.straight():
-            five_in_line = True
-        if self.flush():
-            one_suits = True
-
-        if one_suits and five_in_line:
-            return True
+    def two_pairs(self):  # Two times two cards with the same value
+        pairs = []
+        values = self.cheak_values()
+        for value in values:
+            if values.count(value) >= 2 and value not in pairs:
+                pairs.append(value)
+        if len(pairs) == 2:
+            return f"Pairs of {pairs[0]} and {pairs[1]}"
         return False
 
+    def high_card(self):  # Simple value of the card
+        high_card = None
+        for card in self.cards:
+            if high_card is None:
+                high_card = card
+            if high_card.value < card.value:
+                high_card = card
+        return high_card
