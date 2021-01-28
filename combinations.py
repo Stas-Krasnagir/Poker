@@ -33,14 +33,48 @@ class CardCombinations:
             print(self.three_kind())
             return 400
         elif self.two_pairs():
-            print(self.two_pairs())
-            return 300
+            res = self.two_pairs()
+            print(f"Pairs of {res[0]} and {res[1]}")
+            return 300 + res[0] + res[1] + 20
+
+            # print(self.two_pairs())
+            # return 300
+
+
         elif self.pairs():
-            print(self.pairs())
-            return 200
+            res = self.pairs()
+            if res != False:
+                print(f"Pair of {res}")
+                return 200 + res + 10
+
+            # print(self.pairs())
+            # return 200
         else:
             print(f"High card: {self.high_card()}")
             return 100
+
+    def pairs(self):  # Two cards with the same value
+        pairs = []
+        values = self.cheak_values()
+        for value in values:
+            if values.count(value) >= 2 and value not in pairs:
+                pairs.append(value)
+        if len(pairs) == 1:
+            return pairs[0]
+            # return f"Pair of {pairs[0]}"
+        return False
+
+    def two_pairs(self):  # Two times two cards with the same value
+        pairs = []
+        values = self.cheak_values()
+        for value in values:
+            if values.count(value) >= 2 and value not in pairs:
+                pairs.append(value)
+        if len(pairs) == 2:
+            return pairs
+
+            # return f"Pairs of {pairs[0]} and {pairs[1]}"
+        return False
 
     def royal_flush(self):  # Straight flush from Ten to Ace
         one_suit = False
@@ -156,26 +190,6 @@ class CardCombinations:
                 res.append(value)
         if res:
             return f"Three a kind of {res[0]}"
-        return False
-
-    def pairs(self):  # Two cards with the same value
-        pairs = []
-        values = self.cheak_values()
-        for value in values:
-            if values.count(value) >= 2 and value not in pairs:
-                pairs.append(value)
-        if len(pairs) == 1:
-            return f"Pair of {pairs[0]}"
-        return False
-
-    def two_pairs(self):  # Two times two cards with the same value
-        pairs = []
-        values = self.cheak_values()
-        for value in values:
-            if values.count(value) >= 2 and value not in pairs:
-                pairs.append(value)
-        if len(pairs) == 2:
-            return f"Pairs of {pairs[0]} and {pairs[1]}"
         return False
 
     def high_card(self):  # Simple value of the card
