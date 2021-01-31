@@ -43,7 +43,7 @@ class CardCombinations:
 
         elif self.pairs():
             res = self.pairs()
-            if res != False:
+            if res:
                 print(f"Pair of {res}")
                 return 200 + res + 10
 
