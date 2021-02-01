@@ -1,16 +1,19 @@
+import Cards
+
+
 class CardCombinations:
-    def __init__(self, cards, player_cards):
+    def __init__(self, cards: list[Cards], player_cards: list[Cards]) -> None:
         self.cards = cards + player_cards
 
-    def cheak_suits(self):
+    def cheak_suits(self) -> list:
         suits = [card.suit for card in self.cards]
         return suits
 
-    def cheak_values(self):
+    def cheak_values(self) -> list:
         values = [card.value for card in self.cards]
         return values
 
-    def cheсk(self):
+    def cheсk(self) -> int:
         if self.royal_flush():
             print("Royal flush")
             return 1000
@@ -36,24 +39,16 @@ class CardCombinations:
             res = self.two_pairs()
             print(f"Pairs of {res[0]} and {res[1]}")
             return 300 + res[0] + res[1] + 20
-
-            # print(self.two_pairs())
-            # return 300
-
-
         elif self.pairs():
             res = self.pairs()
             if res:
                 print(f"Pair of {res}")
                 return 200 + res + 10
-
-            # print(self.pairs())
-            # return 200
         else:
             print(f"High card: {self.high_card()}")
             return 100
 
-    def pairs(self):  # Two cards with the same value
+    def pairs(self) -> bool or list:  # Two cards with the same value
         pairs = []
         values = self.cheak_values()
         for value in values:
@@ -61,10 +56,9 @@ class CardCombinations:
                 pairs.append(value)
         if len(pairs) == 1:
             return pairs[0]
-            # return f"Pair of {pairs[0]}"
         return False
 
-    def two_pairs(self):  # Two times two cards with the same value
+    def two_pairs(self) -> bool or list:  # Two times two cards with the same value
         pairs = []
         values = self.cheak_values()
         for value in values:
@@ -72,11 +66,9 @@ class CardCombinations:
                 pairs.append(value)
         if len(pairs) == 2:
             return pairs
-
-            # return f"Pairs of {pairs[0]} and {pairs[1]}"
         return False
 
-    def royal_flush(self):  # Straight flush from Ten to Ace
+    def royal_flush(self) -> bool:  # Straight flush from Ten to Ace
         one_suit = False
         sequence = False
         if self.flush():
@@ -92,7 +84,7 @@ class CardCombinations:
             return True
         return False
 
-    def straight_flush(self):  # Straight of the same suit
+    def straight_flush(self) -> bool:  # Straight of the same suit
         one_suits = False
         five_in_line = False
         if self.straight():
@@ -104,13 +96,13 @@ class CardCombinations:
             return True
         return False
 
-    def four_kind(self):  # Four cards of the same value
+    def four_kind(self) -> bool:  # Four cards of the same value
         values = self.cheak_values()
         for value in values:
             if values.count(value) == 4:
                 return True
 
-    def full_house(self):  # Combination of three of a kind and a pair
+    def full_house(self) -> bool:  # Combination of three of a kind and a pair
         two = False
         three = False
 
@@ -126,7 +118,7 @@ class CardCombinations:
 
         return False
 
-    def flush(self):  # 5 cards of the same suit
+    def flush(self) -> bool:  # 5 cards of the same suit
         suits = self.cheak_suits()
         suits.sort()
         if len(set(suits)) == 4:
@@ -152,7 +144,7 @@ class CardCombinations:
         else:
             return False
 
-    def straight(self):  # Sequence of 5 cards in increasing value
+    def straight(self) -> bool:  # Sequence of 5 cards in increasing value
         values = self.cheak_values()
         values.sort()
         if len(set(values)) < 5:
@@ -182,7 +174,7 @@ class CardCombinations:
         else:
             return False
 
-    def three_kind(self):  # Three cards with the same value
+    def three_kind(self) -> bool:  # Three cards with the same value
         values = self.cheak_values()
         res = []
         for value in values:
@@ -192,7 +184,7 @@ class CardCombinations:
             return f"Three a kind of {res[0]}"
         return False
 
-    def high_card(self):  # Simple value of the card
+    def high_card(self) -> Cards:  # Simple value of the card
         high_card = None
         for card in self.cards:
             if high_card is None:

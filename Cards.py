@@ -84,7 +84,7 @@ class StandardDeck(object):
         random.shuffle(self.cards)
         print("---Deck Shuffled---")
 
-    def deal(self, location):
+    def deal(self, location: object) -> object:
         if len(self.cards) == 0:
             return None
         else:
