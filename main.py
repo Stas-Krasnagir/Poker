@@ -140,6 +140,10 @@ def str_start_game():
     print(player_5.score)
 
     print(player_1.cards)
+    print(player_1.score)
+
+    print(player_2.cards)
+    print(player_2.score)
 
 
 
