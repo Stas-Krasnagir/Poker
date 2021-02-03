@@ -1,6 +1,47 @@
 from Cards import *
 from players import *
 from combinations import CardCombinations
+from operator import itemgetter, attrgetter, methodcaller
+
+
+def __repr__(self):
+    value_name = ""
+    suit_name = ""
+    if self.value == 2:
+        value_name = "Two"
+    elif self.value == 3:
+        value_name = "Three"
+    elif self.value == 4:
+        value_name = "Four"
+    elif self.value == 5:
+        value_name = "Five"
+    elif self.value == 6:
+        value_name = "Six"
+    elif self.value == 7:
+        value_name = "Seven"
+    elif self.value == 8:
+        value_name = "Eight"
+    elif self.value == 9:
+        value_name = "Nine"
+    elif self.value == 10:
+        value_name = "Ten"
+    elif self.value == 11:
+        value_name = "Jack"
+    elif self.value == 12:
+        value_name = "Queen"
+    elif self.value == 13:
+        value_name = "King"
+    elif self.value == 14:
+        value_name = "Ace"
+    if self.suit == "d":
+        suit_name = "Diamonds"
+    elif self.suit == "c":
+        suit_name = "Clubs"
+    elif self.suit == "h":
+        suit_name = "Hearts"
+    elif self.suit == "s":
+        suit_name = "Spades"
+    return value_name + " of " + suit_name
 
 
 def start_game():
@@ -100,11 +141,11 @@ dict_suit = {
     "s": Suit.Spades}
 
 
-# start_game()
-
-
 def str_start_game():
+    # inp_str = input("Input cards: ")
     inp_str = "4cKs4h8s7s Ad4s Ac4d As9s KhKd 5d6d"
+    print(f"Input cards: {inp_str}")
+
     str_table_card = inp_str[:10]
     str_players_card = inp_str[11:]
     split_list = str_players_card.split()
@@ -112,41 +153,44 @@ def str_start_game():
     table = read_string_to_card(str_table_card)
     table_cards = Deck()
     table_cards.cards = table
-    print(table_cards.cards)
 
-    player_1 = Player
+    player_1 = Player()
     player_1.cards = read_string_to_card(split_list[0])
     check_hand(table_cards, player_1)
-    print(player_1.score)
 
-    player_2 = Player
+    player_2 = Player()
     player_2.cards = read_string_to_card(split_list[1])
     check_hand(table_cards, player_2)
-    print(player_2.score)
 
-    player_3 = Player
+    player_3 = Player()
     player_3.cards = read_string_to_card(split_list[2])
     check_hand(table_cards, player_3)
-    print(player_3.score)
 
-    player_4 = Player
+    player_4 = Player()
     player_4.cards = read_string_to_card(split_list[3])
     check_hand(table_cards, player_4)
-    print(player_4.score)
 
-    player_5 = Player
+    player_5 = Player()
     player_5.cards = read_string_to_card(split_list[4])
     check_hand(table_cards, player_5)
-    print(player_5.score)
 
-    print(player_1.cards)
-    print(player_1.score)
+    winner = [[player_1.score, player_1.cards],
+              [player_2.score, player_2.cards],
+              [player_3.score, player_3.cards],
+              [player_4.score, player_4.cards],
+              [player_5.score, player_5.cards]]
 
-    print(player_2.cards)
-    print(player_2.score)
+    winner.sort(key=lambda i: i[0])
 
-
-
+    res = ""
+    for ind, i in enumerate(winner):
+        res += str(i[1])
+        if ind < (len(winner)-1):
+            j = winner[ind+1]
+            if i[0] == j[0]:
+                res += "="
+    print(res)
 
 
 str_start_game()
+# start_game()

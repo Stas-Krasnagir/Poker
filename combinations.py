@@ -1,8 +1,8 @@
-import Cards
+from Cards import Card
 
 
 class CardCombinations:
-    def __init__(self, cards: list[Cards], player_cards: list[Cards]) -> None:
+    def __init__(self, cards: list[Card], player_cards: list[Card]) -> None:
         self.cards = cards + player_cards
 
     def cheak_suits(self) -> list:
@@ -14,38 +14,49 @@ class CardCombinations:
         return values
 
     def cheсk(self) -> int:
+        print_chek = False
         if self.royal_flush():
-            print("Royal flush")
+            if print_chek:
+                print("Royal flush")
             return 1000
         elif self.straight_flush():
-            print("Straight flush")
+            if print_chek:
+                print("Straight flush")
             return 900
         elif self.four_kind():
-            print("Four kind")
+            if print_chek:
+                print("Four kind")
             return 800
         elif self.full_house():
-            print("Full house")
+            if print_chek:
+                print("Full house")
             return 700
         elif self.flush():
-            print(self.flush())
+            if print_chek:
+                print(self.flush())
             return 600
         elif self.straight():
-            print(self.straight())
+            if print_chek:
+                print(self.straight())
             return 500
         elif self.three_kind():
-            print(self.three_kind())
+            if print_chek:
+                print(self.three_kind())
             return 400
         elif self.two_pairs():
             res = self.two_pairs()
-            print(f"Pairs of {res[0]} and {res[1]}")
+            if print_chek:
+                print(f"Pairs of {res[0]} and {res[1]}")
             return 300 + res[0] + res[1] + 20
         elif self.pairs():
             res = self.pairs()
             if res:
-                print(f"Pair of {res}")
+                if print_chek:
+                    print(f"Pair of {res}")
                 return 200 + res + 10
         else:
-            print(f"High card: {self.high_card()}")
+            if print_chek:
+                print(f"High card: {self.high_card()}")
             return 100
 
     def pairs(self) -> bool or list:  # Two cards with the same value
@@ -184,7 +195,7 @@ class CardCombinations:
             return f"Three a kind of {res[0]}"
         return False
 
-    def high_card(self) -> Cards:  # Simple value of the card
+    def high_card(self) -> Card:  # Simple value of the card
         high_card = None
         for card in self.cards:
             if high_card is None:
